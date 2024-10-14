@@ -38,7 +38,7 @@ phases:
       - cd Infra-Code
       - echo "Deploying Infra"
       - npm install
-      - npx cdk deploy helloworld-app-stack --require-approval never
+      - npx cdk deploy cdk-cft-cicd --require-approval never
       - cd ..
       - echo "Codedeploy deployment started"
       - echo "Zipping files for codedeploy "
@@ -48,9 +48,9 @@ phases:
       - echo "Copying zipped files to cross-account S3 bucket which will be utilized for codedeploy"
       - aws s3 cp $DEPLOYMENT_PACKAGE_NAME $CROSS_ACCOUNT_S3_BUCKET_PATH/$DEPLOYMENT_PACKAGE_NAME
       - aws sts get-caller-identity
-      - aws deploy create-deployment --application-name helloworld-app-stack-application --deployment-config-name CodeDeployDefault.OneAtATime --deployment-group-name helloworld-app-stack-deploygroup --description "Deployment Description" --s3-location bucket=$CROSS_ACCOUNT_S3_BUCKET,bundleType=zip,key=$DEPLOYMENT_PACKAGE_NAME --region us-east-1
+      - aws deploy create-deployment --application-name cdk-cft-cicd-application --deployment-config-name CodeDeployDefault.OneAtATime --deployment-group-name cdk-cft-cicd-deploygroup --description "Deployment Description" --s3-location bucket=$CROSS_ACCOUNT_S3_BUCKET,bundleType=zip,key=$DEPLOYMENT_PACKAGE_NAME --region us-east-1
       - echo "Waiting for deployment to complete..."
-      - deploymentId=$(aws deploy list-deployments --application-name helloworld-app-stack-application --deployment-group-name helloworld-app-stack-deploygroup --region us-east-1 --query 'deployments[0]' --output text)
+      - deploymentId=$(aws deploy list-deployments --application-name cdk-cft-cicd-application --deployment-group-name cdk-cft-cicd-deploygroup --region us-east-1 --query 'deployments[0]' --output text)
       - aws deploy wait deployment-successful --deployment-id $deploymentId --region us-east-1
       - echo "Deployment finished"
 
