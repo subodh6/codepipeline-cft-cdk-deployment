@@ -6,7 +6,7 @@ Parameters:
     Type: String
     Description: The GitHub repository **Mandatory field
     AllowedPattern: ".+"
-    Default: "matson-hello-world"
+    Default: "codepipeline-cft-cdk-deployment"
 
   GitHubBranch:
     Type: String
@@ -17,13 +17,7 @@ Parameters:
     Type: String
     Description: The GitHub Org Name **Mandatory field
     AllowedPattern: ".+"
-    # Default: "MatsonInc"
-
-  # CodeArtifactRepository:
-  #   Type: String
-  #   Description: The Codeartifact Repository used to Build&deploy application **Mandatory field
-  #   AllowedPattern: ".+"
-    #Default: "cas-scheduler"
+    Default: "subodh6"
 
   CodeBuildEnvironmentType:
     Type: String
@@ -46,11 +40,6 @@ Parameters:
     AllowedPattern: ".+"
     Default: 954503069243
   
-  # codePipelineBucket:
-  #   Type: String
-  #   Description: Account ID for matsonlabs
-  #   AllowedPattern: ".+"  
-
 Metadata:
   AWS::CloudFormation::Interface:
     ParameterGroups:
@@ -142,8 +131,8 @@ Resources:
                 Action:
                   - sts:AssumeRole
                 Resource: # cross-account deploy roles
-                  - !Sub  arn:aws:iam::954503069243:role/cdk-hnb659fds-deploy-role-954503069243-ap-south-1
-                  - !Sub  arn:aws:iam::954503069243:role/cdk-hnb659fds-file-publishing-role-954503069243-ap-south-1
+                  - !Sub  arn:aws:iam::954503069243:role/cdk-hnb659fds-deploy-role-954503069243-us-east-1
+                  - !Sub  arn:aws:iam::954503069243:role/cdk-hnb659fds-file-publishing-role-954503069243-us-east-1
                   # - !Sub arn:aws:iam::${labAccountId}:role/${AWS::StackName}-deployer-role
               - Effect: Allow
                 Action:
