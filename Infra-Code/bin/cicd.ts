@@ -4,6 +4,6 @@ import { crossaccount } from '../lib/cross-account';
 
 const app = new cdk.App();
 
-new crossaccount(app, 'helloworld-app-stack', {
+new crossaccount(app, 'cdk-cft-cicd', {
   env: { account: '954503069243', region: 'us-east-1' },
 });
